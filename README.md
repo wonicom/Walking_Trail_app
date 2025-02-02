@@ -38,5 +38,59 @@ By integrating with GPS and air quality APIs, the app ensures that users can mak
 |Documentation -Queue Server| **Message Broker Software**<br>- Based on the AMQP protocol, utilizing queues, exchanges, and routing keys to distribute and manage messages.<br>- Used in **microservices** and **event-driven architectures**. <br><br> **Proxy to Queue Request Transmission** <br> - Ensures smooth communication when the proxy server sends data to the queue (request queue). <br><br> **Fine Dust Information for Seoul and Jeju** <br> - Retrieves one piece of fine dust information each for **Seoul** and **Jeju** from the queue. <br><br> **Sequential Transmission & Delay Testing** <br> - Sends the first request, introduces an intentional delay, and then sends the second request to verify whether the overall **flow** operates correctly.| 1 hours |
 |Documentation - API Server | Language: Python <br> Linux Server: Ubuntu | 1 hours |
 |Documentation - DB | Database Type & Version: MySQL 8.0 <br> Server Environment: Ubuntu 20.04 <br> Host: localhost <br> Port: Default (3306) <br> User: root | 30min |
-|Documentation -Detail | 
+|Documentation -Detail | 1. Login <br> 2. Search for Good/Poor Air Quality on Walking Routes - Utilize goverment-provided API | 1 hours |
+| Documentation - API Docs | *App Purpose & Features* <br> 1. Real-time Air Quality Information <br> Recommended Route Guidance <br> 3. Route Notification Feature <br> -> Supports healthy outdoor activities and optimizes workouts and walking routes. | 1 hours |
+| Test case | *Air Quality Search & Data Verification* <br> *Recommended Route Guidance Test* | 1 weeks |
+| Code Implementation | coding | 5 weeks |
+
+# Documentation - API Research
+
+## 1. IQAir API
+
+https://www.iqair.com/commercial-air-quality-monitors/api
+
+### Introduction
+
+The IQAir API delivers real-time air quality data, allowing users to retrieve AQI, concentrations of key pollutants (such as PM2.5, PM10, CO, NO2, SO2, O3), and weather information. Users can request data for specific cities, countries, or use GPS coordinates to get information for a precise location.
+
+### Features and Endpoint
+
+ + /v2/city : Retrieve air quality data for a specific city
+ + /v2/nearest_city : Get air quality data for a specific
+ + /v2/geo: Retrieve data based on GPS coordinates
+ + /v2/countries: List of all available countries
+ + /v2/states: List of states within a country
+ + /v2/cities: List of cities within a state
+
+### Call limitation
+ + 5/minute
+ + 500/day
+ + 10,000/month
+
+### Response Format
+ + All requests return data in JSON format.
+ + An API key is required, and an authentication token must be included in the request.
+
+## 2. Seoul Open Data Plaza API
+
+https://data.seoul.go.kr/dataList/OA-2501/S/1/datasetView.do
+
+### Introduction
+
+Seoul Open Data Plaza API provides public data related to various administrative and urban services within Seoul. Users can access structured datasets for research, development, and analytics.
+
+### Response Format
+ + JSON or XML format
+ + Requires API key for authentication
+
+### Authentication
+ + API key required
+ + Must include the API key in the URL for aythentication
+
+# Documentation - Proxy server Environment Details
+
+ + Proxy Software :  HAProxy 2.7
+ + Operating System : Ubuntu 20.04
+ + SSL/TLS Encryption: Enabled for secure data transmission
+ + Logging: All traffic logs are recorded in /var/log/haproxy.log
 
