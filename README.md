@@ -218,14 +218,16 @@ The average_info table stores aggregated air quality data for different walking 
 |:---|:---|:---|
 | `status` | Indicates whether the request was successful | `success` |
 | `total_results` | The number of walking trail that meet the criteria | `5` |
-| `recommended_walk_courses` | List of recommended trails with air quality info | '[...]` |
+| `recommended_walk_courses` | List of recommended trails with air quality info | `[...]` |
 | 'name` | Name of the walking trail | `관악산 자락길(무장애숲길)` |
 | 'distance` | Trail length | `"1.3km"` |
 | `lead_time` | Estimated walking time | `"30 minutes"` |
 | `latitude` | Converted WGS84 latitude | `37.4669` |
 | 'longitude` | Converted WGS84 longitude | `127.4478` |
-| `air_quality.aqi` | Air Quality Index(AQI) value | '70' |
+| `air_quality.aqi` | Air Quality Index(AQI) value | `70` |
 | `air_quality.status` | AQI status (Good, Moderate, Unhealthy, etc) | `"Moderate"` |
 | `air_quality.main_pollutant` | Main air pollutant affecting the area | `"OM2.5"` |
 
+### Why Does `main_pollutant` Differ Between Locations?
 
+The `main_pollutant` value in the IQAir API response varies based on the dominant air pollutant at a specific location at the time of the request.
