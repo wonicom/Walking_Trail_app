@@ -30,6 +30,7 @@ By integrating with GPS and air quality APIs, the app ensures that users can mak
  + Sync with fitness tracking apps to combine workout performance with environmental data.
 
 # User Stories
+
 | User stories | Description | Estimate |
 |:---|:---|:---|
 | Documentation - API research | Design | |
@@ -63,11 +64,13 @@ The IQAir API delivers real-time air quality data, allowing users to retrieve AQ
  + /v2/cities: List of cities within a state
 
 ### Call limitation
+
  + 5/minute
  + 500/day
  + 10,000/month
 
 ### Response Format
+
  + All requests return data in JSON format.
  + An API key is required, and an authentication token must be included in the request.
 
@@ -80,10 +83,12 @@ https://data.seoul.go.kr/dataList/OA-2501/S/1/datasetView.do
 Seoul Open Data Plaza API provides public data related to various administrative and urban services within Seoul. Users can access structured datasets for research, development, and analytics.
 
 ### Response Format
+
  + JSON or XML format
  + Requires API key for authentication
 
 ### Authentication
+
  + API key required
  + Must include the API key in the URL for aythentication
 
@@ -93,4 +98,134 @@ Seoul Open Data Plaza API provides public data related to various administrative
  + Operating System : Ubuntu 20.04
  + SSL/TLS Encryption: Enabled for secure data transmission
  + Logging: All traffic logs are recorded in /var/log/haproxy.log
+
+# Documentation - Queue server Enviroment Dtails
+
+ + Queue Software : RabbitMQ
+ + Protocol : AMQP(RabbitMQ)
+ + Operating System : Ubuntu 20.04
+ + User : admin
+
+# Documentation - API Server Environment Details
+
+ + Programming Language : Python
+ + Operating System : Ubuntu 20.04
+ + Host : localhost
+ + Database : MySQL 8.0
+ + Reverse Proxy : HAProxy
+
+# Documentation - Database Environment Details
+
+ + Operating System : Window10 (Client) / Ubuntu (Database Server)
+ + Database Software : MySQL 8.0
+ + Connection Method : Python to MYSQL using mysql-connector-python
+ + Installation Command : pip install mysql-connector-python
+
+# Database - Table Design
+
+## Search info Table
+
+A table for storing user information, including the user's name, location, and preferred workout course.
+
+| Column Name | Data Type | Description |
+|:---|:---|:---|
+| id | INT | Primary Key, User ID |
+| region_city | VARCHAR(100) | User's city |
+| region_district | VARCHAR(255) | User's detailed location |
+| preferred_route | VARCHAR(255) | Preferred workout route |
+| air_quality | TIMESTAMP | Air quality record |
+| created_at | TIMESTAMP | Registration date |
+
+## Average info Table
+
+The average_info table stores aggregated air quality data for different walking routes over a specified time range. It helps in analyzing long-term trends and recommending optimal routes based on air quality conditions.
+
+| Column Name | Data Type | Description |
+|:---|:---|:---|
+| id | INT(Primary Key, AUTO_INCREMENT) | Unique identifier for each record |
+| route_name | VARCHAR(255) | Name of the walking route |
+| average_aqi | FLOAT | Average Air Quality Index (AQI) for the route |
+| average_pm25 | FLOAT | Average Air Quality Index(AQI) for the route |
+| average_pm10 | FLOAT | Average PM10 concentration |
+| average_o3 | FLOAT | Average Ozone (O3) concentration |
+| time_range | VARCHAR(50) | Time period over which the average values are calculated |
+| recommend_score | FLOAT | Score based on air quality |
+| last_updated | TIMESTAMP | Last update timestamp |
+
+# Documentation - Details
+
+## 1. Seoul Doodream Trail API
+### Overview
+ + API Name : Seoul Doodream Trail API
+ + Purpose : Provides walking trail information in Seoul
+ + Base Endpoint
+   ```
+   http://openAPI.seoul.go.kr:8088/{API_KEY}/xml/SeoulGilWalkCourse/1/10
+   ```
+ + Request Method : `GET`
+ + API Key Required : `SEOUL_API_KEY`
+
+### Required Parameters
+| Parameter | Description | Example |
+|:---|:---|:---|
+| `lat` | Latitude(WGS84) | `37.5665` |
+| `lon` | Longitude(WGS84) | `126.9780` |
+| `key` | Your registered API key | requested API key |
+
+## 2. IQAir API
+
+ + API Name : IQAir AirVisual API
+ + Purpose : provideds air quality data for a given latitude & longitude
+ + Base Endpoint
+   ```
+   http://api.airvisual.com/v2/nearest_city
+   ```
+ + Request Method : `GET`
+ + API Key Required : `IQAIR_API_KEY`
+
+### Required Parameters
+| Parameter | Description | Example |
+|:---|:---|:---|
+| `lat` | Latitude(WGS84) | `37.5665` |
+| `lon` | Longitude(WGS84) | `126.9780` |
+| `key` | Your registered API key | requested API key |
+
+# Response
+
+## Recommended API Response Example(JSON)
+
+```
+{
+    "status": "success",
+    "total_results": 5,
+    "recommended_walk_courses": [
+        {
+            "name": "Gwanaksan Jarak-gil (Barrier-free Forest Trail)",
+            "distance": "1.3km",
+            "lead_time": "30 minutes",
+            "latitude": 37.4669,
+            "longitude": 127.4478,
+            "air_quality": {
+                "aqi": 70,
+                "status": "Moderate",
+                "main_pollutant": "PM2.5"
+            }
+        }
+```
+
+### Explanation of the JSON Response
+| Key | Description | Example Value |
+|:---|:---|:---|
+| `status` | Indicates whether the request was successful | `success` |
+| `total_results` | The number of walking trail that meet the criteria | `5` |
+| `recommended_walk_courses` | List of recommended trails with air quality info | '[...]` |
+| 'name` | Name of the walking trail | `관악산 자락길(무장애숲길)` |
+| 'distance` | Trail length | `"1.3km"` |
+| `lead_time` | Estimated walking time | `"30 minutes"` |
+| `latitude` | Converted WGS84 latitude | `37.4669` |
+| 'longitude` | Converted WGS84 longitude | `127.4478` |
+| `air_quality.aqi` | Air Quality Index(AQI) value | '70' |
+| `air_quality.status` | AQI status (Good, Moderate, Unhealthy, etc) | `"Moderate"` |
+| `air_quality.main_pollutant` | Main air pollutant affecting the area | `"OM2.5"` |
+
 
