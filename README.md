@@ -190,6 +190,52 @@ The average_info table stores aggregated air quality data for different walking 
 | `lon` | Longitude(WGS84) | `126.9780` |
 | `key` | Your registered API key | requested API key |
 
+# Documentation - API Docs
+
+## 1. Purpose of the App
+
+### Supporting Healthy Outdoor Activities
+
+ + Provides users with real-time air quality information around their current location and destination.
+ + Recommends walking routes with optimal air quality to ensure a safe and healthy outdoor experience.
+
+### Optimizing Exercise & Walking
+
+ + Suggests the best routes for walking, running, and other outdoor activities based on real-time air quality data.
+ + Encourages a healthier lifestyle by guiding users toward cleaner outdoor environments.
+
+## 2. Key Feature
+
+### Real-Time Air Quality Monitoring
+
+ + Uses Seoul's public data API to provide real-time air quality conditions for users' locations and selected routes.
+
+### Smart Route Recommendation
+
+ + Suggests optimal walking or running routes based on current air quality, fine dust levels, and user activity preferences(e,g.walking, jogging)
+ + Analyzes air quality data across multiple routes to identify the safest and cleanest path.
+
+### Air Quality Alerts
+
+ + Provides real-time notifications based on user-defined thresholds for air quality changes.
+ + Helps users make informed decisions about their outdoor activities by alerting them when conditions deteriorate.
+
+## 3. Additional Feature Suggestions
+
+### Air Quality Prediction
+
+ + Utilizes AI models to forecast air quality trends, allowing users to plan their outdoor activities in advance based on predicted conditions.
+
+### Community Feature
+
+ + Enables users to share experiences and reviews of specific routes.
+ + Leverages user feedback to suggest additional recommended routes based on collective experiences.
+
+### Environmental Comfort Index
+
+ + In addition to air quality, the app visualizes an environmental comfort index by considering factors such as green spaces, proximity to water bodies, and well-maintained surroundings.
+ + Helps users choose more comportable and pleasant routes for their outdoor activities.
+
 # Response
 
 ## Recommended API Response Example(JSON)
@@ -219,11 +265,11 @@ The average_info table stores aggregated air quality data for different walking 
 | `status` | Indicates whether the request was successful | `success` |
 | `total_results` | The number of walking trail that meet the criteria | `5` |
 | `recommended_walk_courses` | List of recommended trails with air quality info | `[...]` |
-| 'name` | Name of the walking trail | `관악산 자락길(무장애숲길)` |
-| 'distance` | Trail length | `"1.3km"` |
+| `name` | Name of the walking trail | `관악산 자락길(무장애숲길)` |
+| `distance` | Trail length | `"1.3km"` |
 | `lead_time` | Estimated walking time | `"30 minutes"` |
 | `latitude` | Converted WGS84 latitude | `37.4669` |
-| 'longitude` | Converted WGS84 longitude | `127.4478` |
+| `longitude` | Converted WGS84 longitude | `127.4478` |
 | `air_quality.aqi` | Air Quality Index(AQI) value | `70` |
 | `air_quality.status` | AQI status (Good, Moderate, Unhealthy, etc) | `"Moderate"` |
 | `air_quality.main_pollutant` | Main air pollutant affecting the area | `"OM2.5"` |
