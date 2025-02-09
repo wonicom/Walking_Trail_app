@@ -92,6 +92,10 @@ Seoul Open Data Plaza API provides public data related to various administrative
  + API key required
  + Must include the API key in the URL for aythentication
 
+# Documentation - System Architecture
+
+
+
 # Documentation - Proxy server Environment Details
 
  + Proxy Software :  HAProxy 2.7
