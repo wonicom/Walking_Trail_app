@@ -94,7 +94,7 @@ Seoul Open Data Plaza API provides public data related to various administrative
 
 # Documentation - System Architecture
 
-
+![이미지설명](20250209_121455.png)
 
 # Documentation - Proxy server Environment Details
 
