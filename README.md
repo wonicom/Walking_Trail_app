@@ -240,6 +240,40 @@ The average_info table stores aggregated air quality data for different walking 
  + In addition to air quality, the app visualizes an environmental comfort index by considering factors such as green spaces, proximity to water bodies, and well-maintained surroundings.
  + Helps users choose more comportable and pleasant routes for their outdoor activities.
 
+## 4. API Request & Response
+
+### Request
+#### Get Average Air Quality
+
+| HTTP Method | Endpoint |
+|:---|:---|
+| `GET` | /average?course_name={COURSE_NAME} |
+
++ Request Example
+  
+`curl -X GET "https://api.airquality.com/v1/average?course_name=hanriver&api_key=YOUR_API_KEY"`
+
++ Request Parameters
+
+| Parameter | Type | Required | Description |
+|:---|:---|:---|:---|
+| course_name | String | ✅ | trail name |
+| ai_key | String | ✅ | API authentication key |
+
++ Response: Get Average Air Quality
+  
+```
+{
+  "Course_name": "hanriver",
+  "average_aqi": 65.4,
+  "average_pm25": 38.2,
+  "time_range": "09:00-18:00",
+  "recommend_score": 72.3,
+  "data_source": "IQAir, Seoul Open Data Plaza",
+  "last_updated": "2025-01-22T12:00:00Z"
+}
+```
+
 # Response
 
 ## Recommended API Response Example(JSON)
